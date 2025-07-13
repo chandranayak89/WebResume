@@ -10,21 +10,23 @@ const ParticleSphere = ({ scrollProgress }) => {
   const animationIdRef = useRef(null)
   const isSplatteredRef = useRef(false)
 
-  // Particle system configuration
+  // Fine cloud configuration
   const config = useMemo(() => ({
-    count: window.innerWidth > 768 ? 2500 : 1500,
-    radius: 8,
-    thickness: 0.3,
-    colors: ['#4F46E5', '#EC4899', '#8B5CF6', '#06B6D4', '#10B981'],
+    count: window.innerWidth > 768 ? 7000 : 3500,
+    radius: 6.5,
+    thickness: 1.2,
+    colors: [
+      '#e0e7ff', '#b3c6ff', '#a5d8ff', '#b2dfdb', '#f3e5f5', '#e1bee7', '#b2ebf2', '#fffde4'
+    ],
     physics: {
-      gravity: 0.2,
-      friction: 0.98,
-      splatterForce: 1.8,
-      turbulence: 0.5
+      gravity: 0.10,
+      friction: 0.995,
+      splatterForce: 2.5,
+      turbulence: 0.7
     },
     animation: {
-      rotationSpeed: 0.001,
-      pulseSpeed: 0.005
+      rotationSpeed: 0.00018,
+      pulseSpeed: 0.0015
     }
   }), [])
 
@@ -42,7 +44,7 @@ const ParticleSphere = ({ scrollProgress }) => {
       0.1,
       1000
     )
-    camera.position.z = 15
+    camera.position.z = 7.5
 
     // Renderer setup
     const renderer = new THREE.WebGLRenderer({ 
@@ -55,14 +57,14 @@ const ParticleSphere = ({ scrollProgress }) => {
     rendererRef.current = renderer
     mountRef.current.appendChild(renderer.domElement)
 
-    // Create particles
+    // Create fine, tiny particles
     const particles = []
-    const geometry = new THREE.SphereGeometry(0.05, 8, 8)
+    const geometry = new THREE.SphereGeometry(0.03, 8, 8)
     const materials = config.colors.map(color => 
       new THREE.MeshBasicMaterial({ 
         color, 
         transparent: true, 
-        opacity: 0.8 
+        opacity: 0.7 
       })
     )
 
@@ -83,30 +85,28 @@ const ParticleSphere = ({ scrollProgress }) => {
         originalPosition: particle.position.clone(),
         velocity: new THREE.Vector3(),
         color: material.color.clone(),
-        size: Math.random() * 0.5 + 0.5
+        size: Math.random() * 0.25 + 0.7
       }
+      
+      // Set initial scale
+      particle.scale.setScalar(particle.userData.size)
       
       particles.push(particle)
       scene.add(particle)
     }
     particlesRef.current = particles
 
-    // Add ambient light
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
+    // Soft ambient light for cloud effect
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7)
     scene.add(ambientLight)
-
-    // Add point light
-    const pointLight = new THREE.PointLight(0x4F46E5, 1, 100)
-    pointLight.position.set(10, 10, 10)
-    scene.add(pointLight)
 
     // Animation loop
     const animate = () => {
       animationIdRef.current = requestAnimationFrame(animate)
       
-      // Rotate camera slowly
-      camera.position.x = Math.cos(Date.now() * config.animation.rotationSpeed) * 15
-      camera.position.z = Math.sin(Date.now() * config.animation.rotationSpeed) * 15
+      // Slow, gentle rotation
+      camera.position.x = Math.cos(Date.now() * config.animation.rotationSpeed) * 10
+      camera.position.z = Math.sin(Date.now() * config.animation.rotationSpeed) * 10
       camera.lookAt(0, 0, 0)
 
       // Update particles
@@ -117,20 +117,21 @@ const ParticleSphere = ({ scrollProgress }) => {
           particle.position.y += Math.sin(time) * 0.001
           particle.rotation.x += 0.01
           particle.rotation.y += 0.01
+          // Subtle pulse
+          const pulse = Math.sin(time) * 0.05 + 1
+          particle.scale.setScalar(particle.userData.size * pulse)
         } else {
           // Apply physics for splatter effect
           particle.userData.velocity.y -= config.physics.gravity
           particle.userData.velocity.multiplyScalar(config.physics.friction)
           particle.position.add(particle.userData.velocity)
-          
           // Fade out particles as they fall
           const distance = particle.position.length()
-          const opacity = Math.max(0, 1 - distance / 50)
+          const opacity = Math.max(0, 0.45 - distance / 40)
           particle.material.opacity = opacity
-          
           // Rotate falling particles
-          particle.rotation.x += 0.05
-          particle.rotation.y += 0.05
+          particle.rotation.x += 0.04
+          particle.rotation.y += 0.04
         }
       })
 
@@ -162,10 +163,10 @@ const ParticleSphere = ({ scrollProgress }) => {
 
   // Handle scroll-triggered splatter effect
   useEffect(() => {
-    if (scrollProgress > 0.15 && !isSplatteredRef.current) {
+    if (scrollProgress > 0.08 && !isSplatteredRef.current) {
       isSplatteredRef.current = true
       triggerSplatterEffect()
-    } else if (scrollProgress <= 0.15 && isSplatteredRef.current) {
+    } else if (scrollProgress <= 0.03 && isSplatteredRef.current) {
       isSplatteredRef.current = false
       resetParticles()
     }
@@ -176,23 +177,20 @@ const ParticleSphere = ({ scrollProgress }) => {
       // Calculate outward force vector
       const forceVector = particle.position.clone()
         .normalize()
-        .multiplyScalar(config.physics.splatterForce * (1 + Math.random() * 0.5))
-      
+        .multiplyScalar(config.physics.splatterForce * (1 + Math.random() * 0.7))
       // Add turbulence
       const turbulence = new THREE.Vector3(
         (Math.random() - 0.5) * config.physics.turbulence,
         (Math.random() - 0.5) * config.physics.turbulence,
         (Math.random() - 0.5) * config.physics.turbulence
       )
-      
       particle.userData.velocity.add(forceVector).add(turbulence)
-      
       // Animate particle scale
       gsap.to(particle.scale, {
-        x: particle.userData.size * 2,
-        y: particle.userData.size * 2,
-        z: particle.userData.size * 2,
-        duration: 0.5,
+        x: particle.userData.size * 2.5,
+        y: particle.userData.size * 2.5,
+        z: particle.userData.size * 2.5,
+        duration: 0.3,
         ease: "power2.out"
       })
     })
@@ -205,25 +203,22 @@ const ParticleSphere = ({ scrollProgress }) => {
         x: particle.userData.originalPosition.x,
         y: particle.userData.originalPosition.y,
         z: particle.userData.originalPosition.z,
-        duration: 1,
+        duration: 2.0,
         ease: "power2.out"
       })
-      
       // Reset velocity
       particle.userData.velocity.set(0, 0, 0)
-      
       // Reset scale and opacity
       gsap.to(particle.scale, {
-        x: 1,
-        y: 1,
-        z: 1,
-        duration: 1,
+        x: particle.userData.size,
+        y: particle.userData.size,
+        z: particle.userData.size,
+        duration: 2.0,
         ease: "power2.out"
       })
-      
       gsap.to(particle.material, {
-        opacity: 0.8,
-        duration: 1,
+        opacity: 0.45,
+        duration: 2.0,
         ease: "power2.out"
       })
     })
@@ -239,7 +234,7 @@ const ParticleSphere = ({ scrollProgress }) => {
         left: 0,
         width: '100%',
         height: '100%',
-        zIndex: 1,
+        zIndex: 5,
         pointerEvents: 'none'
       }}
     />

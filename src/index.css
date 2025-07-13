@@ -1,8 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
 @layer base {
   * {
@@ -14,6 +14,7 @@
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
   }
   
   html {
@@ -36,7 +37,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 5;
     pointer-events: none;
   }
   
@@ -45,9 +46,9 @@
     z-index: 10;
     background: linear-gradient(
       135deg,
-      rgba(15, 23, 42, 0.95) 0%,
-      rgba(30, 41, 59, 0.95) 50%,
-      rgba(51, 65, 85, 0.95) 100%
+      rgba(15, 23, 42, 0.3) 0%,
+      rgba(30, 41, 59, 0.3) 50%,
+      rgba(51, 65, 85, 0.3) 100%
     );
   }
   
@@ -146,18 +147,6 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 } 
-
-/* Animated gradient background */
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-body {
-  background: linear-gradient(270deg, #232946, #3a86ff, #8338ec, #ff006e, #232946);
-  background-size: 1200% 1200%;
-  animation: gradientBG 30s ease infinite;
-}
 
 /* Glassmorphism utility */
 .glass-effect {

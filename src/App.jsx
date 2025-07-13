@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import ParticleSphere from './components/ParticleSphere'
 import ResumeContent from './components/ResumeContent'
 import ScrollIndicator from './components/ScrollIndicator'
+import Starfall from './components/Starfall'
 import { Download, Menu, X, Globe } from 'lucide-react'
 
 function App() {
@@ -29,6 +30,9 @@ function App() {
       const documentHeight = document.documentElement.scrollHeight - windowHeight
       const progress = Math.min(scrollY / documentHeight, 1)
       setScrollProgress(progress)
+      
+      // Debug logging
+      console.log('Scroll Y:', scrollY, 'Progress:', progress)
 
       // Update current section based on scroll position
       const sections = document.querySelectorAll('section[id]')
@@ -72,6 +76,7 @@ function App() {
     <div className="relative min-h-screen">
       {/* Particle System Background */}
       <ParticleSphere scrollProgress={scrollProgress} />
+      {currentSection !== 0 && <Starfall />}
       
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 glass-effect">

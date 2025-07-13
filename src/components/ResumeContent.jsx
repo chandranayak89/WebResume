@@ -288,9 +288,9 @@ const ResumeContent = ({ language = 'en' }) => {
       <section 
         id="hero" 
         ref={addToRefs}
-        className="min-h-screen flex items-center justify-center relative overflow-hidden"
+        className="min-h-screen flex items-center justify-center relative overflow-hidden bg-transparent"
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-dark-900 via-dark-800 to-dark-900 opacity-90"></div>
+        {/* Removed background overlay for full transparency */}
         <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
