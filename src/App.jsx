@@ -3,14 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion'
 import ParticleSphere from './components/ParticleSphere'
 import ResumeContent from './components/ResumeContent'
 import ScrollIndicator from './components/ScrollIndicator'
-import PDFExporter from './components/PDFExporter'
-import { Download, Menu, X } from 'lucide-react'
+import { Download, Menu, X, Globe } from 'lucide-react'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
   const [currentSection, setCurrentSection] = useState(0)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
+  const [language, setLanguage] = useState('en') // 'en' for English, 'de' for German
   const contentRef = useRef(null)
 
   useEffect(() => {
@@ -48,6 +48,10 @@ function App() {
     if (sections[sectionIndex]) {
       sections[sectionIndex].scrollIntoView({ behavior: 'smooth' })
     }
+  }
+
+  const toggleLanguage = () => {
+    setLanguage(prev => prev === 'en' ? 'de' : 'en')
   }
 
   if (isLoading) {
@@ -115,7 +119,13 @@ function App() {
               >
                 Contact
               </button>
-              <PDFExporter />
+              <button
+                onClick={toggleLanguage}
+                className="glass-effect px-4 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 flex items-center space-x-2"
+              >
+                <Globe className="w-4 h-4" />
+                <span className="text-sm font-medium">{language === 'en' ? 'EN' : 'DE'}</span>
+              </button>
             </div>
 
             {/* Mobile Menu Button */}
@@ -170,7 +180,13 @@ function App() {
                 Contact
               </button>
               <div className="pt-2">
-                <PDFExporter />
+                <button
+                  onClick={toggleLanguage}
+                  className="glass-effect px-4 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 flex items-center space-x-2 w-full"
+                >
+                  <Globe className="w-4 h-4" />
+                  <span className="text-sm font-medium">{language === 'en' ? 'EN' : 'DE'}</span>
+                </button>
               </div>
             </div>
           </motion.div>
@@ -185,7 +201,7 @@ function App() {
 
       {/* Main Content */}
       <main ref={contentRef} className="content-layer relative z-10">
-        <ResumeContent />
+        <ResumeContent language={language} />
       </main>
 
       {/* Scroll Progress Bar */}

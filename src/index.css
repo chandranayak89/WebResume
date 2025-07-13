@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
 @layer base {
   * {
     @apply border-gray-200;
@@ -143,4 +145,40 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+} 
+
+/* Animated gradient background */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+body {
+  background: linear-gradient(270deg, #232946, #3a86ff, #8338ec, #ff006e, #232946);
+  background-size: 1200% 1200%;
+  animation: gradientBG 30s ease infinite;
+}
+
+/* Glassmorphism utility */
+.glass-effect {
+  background: rgba(36, 39, 62, 0.7);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Card shadow */
+.card-shadow {
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.12), 0 1.5px 4px 0 rgba(0,0,0,0.10);
+}
+
+/* Button hover effect */
+.btn-animate {
+  transition: transform 0.2s cubic-bezier(.4,2,.6,1), box-shadow 0.2s;
+}
+.btn-animate:hover {
+  transform: scale(1.06) translateY(-2px);
+  box-shadow: 0 6px 24px 0 rgba(58,134,255,0.18);
 } 
