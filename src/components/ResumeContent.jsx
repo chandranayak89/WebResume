@@ -37,9 +37,9 @@ const ResumeContent = ({ language = 'en' }) => {
   const [showImages, setShowImages] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const images = [
-    '/Image1.jpeg',
-    '/Image2.jpeg',
-    '/Image3.jpeg'
+    import.meta.env.BASE_URL + 'Image1.jpeg',
+    import.meta.env.BASE_URL + 'Image2.jpeg',
+    import.meta.env.BASE_URL + 'Image3.jpeg'
   ]
 
   // Translations object
