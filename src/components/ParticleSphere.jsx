@@ -12,8 +12,8 @@ const ParticleSphere = ({ scrollProgress }) => {
 
   // Fine cloud configuration
   const config = useMemo(() => ({
-    count: window.innerWidth > 768 ? 7000 : 3500,
-    radius: 6.5,
+    count: window.innerWidth > 768 ? 7000 : window.innerWidth <= 400 ? 1800 : 3500,
+    radius: window.innerWidth <= 400 ? 5.2 : 6.5,
     thickness: 1.2,
     colors: [
       '#ffffff', '#e0e7ff', '#b3c6ff', '#a5d8ff', '#d1c4e9', '#ede7f6',
