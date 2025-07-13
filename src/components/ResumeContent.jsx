@@ -480,7 +480,7 @@ const ResumeContent = ({ language = 'en' }) => {
                   ) : (
                     <ChevronDown className="w-6 h-6 text-primary-400" />
                   )}
-                </div>
+              </div>
               </div>
               
               {expandedSections['atlas-copco'] && (
@@ -499,12 +499,12 @@ const ResumeContent = ({ language = 'en' }) => {
                       </li>
                     ))}
                   </ul>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm">Docker</span>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm">Docker</span>
                     <span className="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm">Git</span>
                     <span className="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm">Playwright</span>
                     <span className="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm">Jira</span>
-                  </div>
+              </div>
                 </motion.div>
               )}
             </motion.div>
@@ -534,7 +534,7 @@ const ResumeContent = ({ language = 'en' }) => {
                   ) : (
                     <ChevronDown className="w-6 h-6 text-primary-400" />
                   )}
-                </div>
+              </div>
               </div>
               
               {expandedSections['prosaic'] && (
@@ -553,14 +553,14 @@ const ResumeContent = ({ language = 'en' }) => {
                       </li>
                     ))}
                   </ul>
-                  <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2">
                     <span className="px-3 py-1 bg-accent-500/20 text-accent-300 rounded-full text-sm">Nessus</span>
                     <span className="px-3 py-1 bg-accent-500/20 text-accent-300 rounded-full text-sm">OpenVAS</span>
                     <span className="px-3 py-1 bg-accent-500/20 text-accent-300 rounded-full text-sm">Metasploit</span>
-                    <span className="px-3 py-1 bg-accent-500/20 text-accent-300 rounded-full text-sm">Burp Suite</span>
+                <span className="px-3 py-1 bg-accent-500/20 text-accent-300 rounded-full text-sm">Burp Suite</span>
                     <span className="px-3 py-1 bg-accent-500/20 text-accent-300 rounded-full text-sm">Splunk</span>
                     <span className="px-3 py-1 bg-accent-500/20 text-accent-300 rounded-full text-sm">Python</span>
-                  </div>
+              </div>
                 </motion.div>
               )}
             </motion.div>
@@ -590,7 +590,7 @@ const ResumeContent = ({ language = 'en' }) => {
                   ) : (
                     <ChevronDown className="w-6 h-6 text-primary-400" />
                   )}
-                </div>
+              </div>
               </div>
               
               {expandedSections['kit'] && (
@@ -609,12 +609,12 @@ const ResumeContent = ({ language = 'en' }) => {
                       </li>
                     ))}
                   </ul>
-                  <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2">
                     <span className="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm">PyTorch</span>
-                    <span className="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm">PostgreSQL</span>
+                <span className="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm">PostgreSQL</span>
                     <span className="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm">Linux</span>
                     <span className="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm">CI/CD</span>
-                  </div>
+              </div>
                 </motion.div>
               )}
             </motion.div>
