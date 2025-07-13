@@ -16,7 +16,9 @@ const ParticleSphere = ({ scrollProgress }) => {
     radius: 6.5,
     thickness: 1.2,
     colors: [
-      '#e0e7ff', '#b3c6ff', '#a5d8ff', '#b2dfdb', '#f3e5f5', '#e1bee7', '#b2ebf2', '#fffde4'
+      '#ffffff', '#e0e7ff', '#b3c6ff', '#a5d8ff', '#d1c4e9', '#ede7f6',
+      '#fbcfe8', '#f9fafb', '#a7f3d0', '#fef08a',
+      '#fca5a5', '#6ee7b7', '#fcd34d', '#fbbf24', '#f472b6', '#a5b4fc', '#67e8f9', '#f0abfc', '#f87171', '#38bdf8'
     ],
     physics: {
       gravity: 0.10,

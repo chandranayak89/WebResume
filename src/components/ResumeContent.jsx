@@ -366,7 +366,7 @@ const ResumeContent = ({ language = 'en' }) => {
       <section 
         id="about" 
         ref={addToRefs}
-        className="py-20 px-4 relative"
+        className="py-20 px-4 relative section-fade-in"
       >
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -436,7 +436,7 @@ const ResumeContent = ({ language = 'en' }) => {
       <section 
         id="experience" 
         ref={addToRefs}
-        className="py-20 px-4 relative"
+        className="py-20 px-4 relative section-fade-in"
       >
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -626,7 +626,7 @@ const ResumeContent = ({ language = 'en' }) => {
       <section 
         id="skills" 
         ref={addToRefs}
-        className="py-20 px-4 relative"
+        className="py-20 px-4 relative section-fade-in"
       >
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -832,7 +832,7 @@ const ResumeContent = ({ language = 'en' }) => {
       <section 
         id="contact" 
         ref={addToRefs}
-        className="py-20 px-4 relative"
+        className="py-20 px-4 relative section-fade-in"
       >
         <div className="max-w-6xl mx-auto">
           <motion.div
