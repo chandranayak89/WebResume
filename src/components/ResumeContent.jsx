@@ -36,10 +36,26 @@ const ResumeContent = ({ language = 'en' }) => {
   const [submitStatus, setSubmitStatus] = useState(null)
   const [showImages, setShowImages] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [showCertificates, setShowCertificates] = useState(false)
   const images = [
     import.meta.env.BASE_URL + 'Image1.jpeg',
     import.meta.env.BASE_URL + 'Image2.jpeg',
     import.meta.env.BASE_URL + 'Image3.jpeg'
+  ]
+  
+  const certificates = [
+    "Google Cybersecurity Certificate",
+    "Google Data Science Certificate", 
+    "AWS Cloud Practitioner",
+    "Learning Data Analytics: 1 Foundations",
+    "Learning Data Analytics Part 2: Extending and Applying Core Knowledge",
+    "Microsoft Azure: Automatisierung",
+    "Artificial Intelligence Foundations: Neural Networks",
+    "Software Architecture: Domain-Driven Design",
+    "Introduction to Linux",
+    "IoT Foundations: Fundamentals",
+    "Python Automation and Testing",
+    "Introduction to Artificial Intelligence"
   ]
 
   // Translations object
@@ -333,22 +349,28 @@ const ResumeContent = ({ language = 'en' }) => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex justify-center space-x-4"
+            className="flex flex-wrap justify-center gap-4"
           >
             <button 
               onClick={() => setShowProjects(true)}
-              className="bg-gradient-to-r from-primary-500 to-accent-500 hover:from-primary-600 hover:to-accent-600 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
+              className="glass-effect text-white px-6 py-3 rounded-lg font-semibold hover:bg-white/20 transition-all duration-300"
             >
               {t.viewProjects}
             </button>
-            <button className="glass-effect text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/20 transition-all duration-300">
+            <button className="glass-effect text-white px-6 py-3 rounded-lg font-semibold hover:bg-white/20 transition-all duration-300">
               {t.downloadResume}
             </button>
             <button
               onClick={() => setShowImages(true)}
-              className="bg-gradient-to-r from-primary-500 to-accent-500 hover:from-primary-600 hover:to-accent-600 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
+              className="glass-effect text-white px-6 py-3 rounded-lg font-semibold hover:bg-white/20 transition-all duration-300"
             >
               Reveal My Pictures
+            </button>
+            <button
+              onClick={() => setShowCertificates(true)}
+              className="glass-effect text-white px-6 py-3 rounded-lg font-semibold hover:bg-white/20 transition-all duration-300"
+            >
+              View Certificates
             </button>
           </motion.div>
         </div>
@@ -1309,6 +1331,90 @@ const ResumeContent = ({ language = 'en' }) => {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Certificates Modal */}
+      {showCertificates && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={() => setShowCertificates(false)}
+        >
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            className="bg-dark-900 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="sticky top-0 bg-dark-900/95 backdrop-blur-sm border-b border-dark-700 p-6 rounded-t-2xl">
+              <div className="flex justify-between items-center">
+                <h2 className="text-3xl font-bold">
+                  My <span className="gradient-text">Certifications</span>
+                </h2>
+                <button
+                  onClick={() => setShowCertificates(false)}
+                  className="glass-effect p-2 rounded-lg hover:bg-white/20 transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+            </div>
+
+            {/* Certificates Content */}
+            <div className="p-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="grid md:grid-cols-2 gap-6"
+              >
+                {certificates.map((certificate, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 + index * 0.05 }}
+                    className="glass-effect p-6 rounded-xl hover:bg-white/5 transition-colors"
+                  >
+                    <div className="flex items-start">
+                      <div className="w-3 h-3 bg-primary-400 rounded-full mt-2 mr-4 flex-shrink-0"></div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-primary-400 mb-2">
+                          {certificate}
+                        </h3>
+                        <div className="flex items-center text-sm text-dark-400">
+                          <Award className="w-4 h-4 mr-2" />
+                          <span>Professional Certification</span>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="mt-8 text-center"
+              >
+                <div className="glass-effect p-6 rounded-xl">
+                  <h3 className="text-xl font-semibold text-primary-400 mb-4">
+                    Continuous Learning Journey
+                  </h3>
+                  <p className="text-dark-300 leading-relaxed">
+                    These certifications represent my commitment to staying current with industry best practices 
+                    and expanding my expertise across cybersecurity, cloud computing, data science, and artificial intelligence.
+                  </p>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </motion.div>
       )}
 
       {/* Footer */}
